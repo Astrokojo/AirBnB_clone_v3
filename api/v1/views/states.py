@@ -2,7 +2,7 @@
 """ A Flask route that returns json status response"""
 
 from api.v1.views import app_views
-from flask import current_app,jsonify, request, abort
+from flask import jsonify, request, abort
 from models import storage, state
 
 State = state.State
