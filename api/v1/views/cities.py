@@ -77,3 +77,4 @@ def update_city(city_id):
         return jsonify(city.to_dict()), 200
     except Exception as e:
         abort(400, f'Error parsing JSON: {str(e)}')
+
