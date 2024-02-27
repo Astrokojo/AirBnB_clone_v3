@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Test for api/v1/views/cities.py"""
 import unittest
 from flask import json
 from api.v1.app import app

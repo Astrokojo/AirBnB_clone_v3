@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-
-"""Flask app to start storage and handle errors"""
+"""
+Flask app to start storage and handle any possible errors if page not found
+"""
 from api.v1.views import app_views
 from flask import Flask, jsonify
 from models import storage
@@ -12,7 +13,7 @@ app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def close_storage(exception=None):
+def close_storage(exception):
     """Calls close storage at the end of each HTTP request"""
     storage.close()
 

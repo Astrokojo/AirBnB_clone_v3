@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""Test for api/v1/views/states.py"""
 import unittest
 from flask import json
 from api.v1.app import app
@@ -5,9 +7,9 @@ from models import storage, state
 
 State = state.State
 
-class TestFlaskRoutes(unittest.TestCase):
+class TestStatesAPI(unittest.TestCase):
     def setUp(self):
-        # Initialize Flask app test client
+        # Initialize Flask app test States API
         self.app = app.test_client()
         # Create test data
         self.state_data = {'name': 'Test State'}
