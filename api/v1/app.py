@@ -21,10 +21,10 @@ def close_storage(exception):
 @app.errorhandler(404)
 def page_not_found(error):
     """returns 404 error"""
-    return jsonify(error='Not found'), 404
+    return jsonify(error="Not found"), 404
 
 
-if __name__ == '__main__':
-    hbnb_host = os.getenv('HBNB_API_HOST', '0.0.0.0')
-    hbnb_port = int(os.getenv('HBNB_API_PORT', '5000'))
+if __name__ == "__main__":
+    hbnb_host = os.getenv("HBNB_API_HOST", "0.0.0.0")
+    hbnb_port = int(os.getenv("HBNB_API_PORT", "5000"))
     app.run(host=hbnb_host, port=hbnb_port, threaded=True)
