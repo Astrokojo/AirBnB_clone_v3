@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""HBNB API project the app to start storage and handle errors"""
+
+"""Flask app to start storage and handle errors"""
 from api.v1.views import app_views
 from flask import Flask, jsonify
 from models import storage
