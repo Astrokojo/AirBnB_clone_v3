@@ -73,8 +73,8 @@ class FileStorage:
         self.reload()
 
     def get(self, cls, id):
-        """retrieves one object based on the class and its ID else None"""
-        key = cls + '.' + id
+        """Retrieves one object based on the class and its ID else None."""
+        key = cls.__name__ + '.' + str(id)
         if key in self.__objects.keys():
             return self.__objects[key]
         return None

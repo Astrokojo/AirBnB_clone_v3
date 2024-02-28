@@ -51,7 +51,7 @@ class TestAmenitiesAPI(unittest.TestCase):
         storage.save()
         response = self.app.delete(f'/api/v1/amenities/{amenity.id}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(storage.get('Amenity', amenity.id), None)
+        self.assertEqual(storage.get(Amenity, amenity.id), None)
 
         # Test Case for deleting a non-existent amenity
         response = self.app.delete('/api/v1/amenities/1000')
@@ -63,7 +63,7 @@ class TestAmenitiesAPI(unittest.TestCase):
         response = self.app.post('/api/v1/amenities', json=data)
         self.assertEqual(response.status_code, 201)
         amenity_id = json.loads(response.get_data(as_text=True))['id']
-        self.assertTrue(storage.get('Amenity', amenity_id))
+        self.assertTrue(storage.get(Amenity, amenity_id))
         # Test case for creating an amenity with missing data
         response = self.app.post('/api/v1/amenities', json={})
         self.assertEqual(response.status_code, 400)
@@ -80,7 +80,7 @@ class TestAmenitiesAPI(unittest.TestCase):
         data = {'name': 'Updated Amenity'}
         response = self.app.put(f'/api/v1/amenities/{amenity.id}', json=data)
         self.assertEqual(response.status_code, 200)
-        updated_amenity = storage.get('Amenity', amenity.id)
+        updated_amenity = storage.get(Amenity, amenity.id)
         self.assertEqual(updated_amenity.name, 'Updated Amenity')
         # Test case for updating a non-existent amenity
         response = self.app.put('/api/v1/amenities/1000', json=data)
