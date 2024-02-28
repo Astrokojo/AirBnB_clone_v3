@@ -30,7 +30,7 @@ class TestUsersAPI(unittest.TestCase):
     def test_get_users(self):
         """ Test case for retrieving all users """
         # Ensure there's at least one user in storage
-        response = self.app.get('/api/v1/users')
+        response = self.app.get('/api/v1/users/')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data(as_text=True))
         self.assertTrue(isinstance(data, list))
@@ -39,7 +39,7 @@ class TestUsersAPI(unittest.TestCase):
     def test_get_user(self):
         """ Test case for retrieving a specific user """
         # Use the user created in setUp
-        response = self.app.get(f'/api/v1/users/{self.user.id}')
+        response = self.app.get(f'/api/v1/users/{self.user.id}/')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data(as_text=True))
         self.assertEqual(data['id'], str(self.user.id))  # Ensure the IDs match
@@ -47,7 +47,7 @@ class TestUsersAPI(unittest.TestCase):
     def test_delete_user(self):
         """ Test case for deleting an existing user """
         # Use the user created in setUp
-        response = self.app.delete(f'/api/v1/users/{self.user.id}')
+        response = self.app.delete(f'/api/v1/users/{self.user.id}/')
         self.assertEqual(response.status_code, 200)
         # Verify the user is no longer in storage
         self.assertIsNone(storage.get(User, self.user.id))
