@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines API endpoints for City objects"""
+"""Defines API endpoints for City objects."""
 
 from api.v1.views import app_views
 from flask import jsonify, request, abort
