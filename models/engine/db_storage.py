@@ -45,7 +45,7 @@ class DBStorage:
         new_dict = {}
         for clss in classes:
             if cls is None or cls is classes[clss] or cls is clss:
-                objs = self.__session.query(classes[clss]).all()
+                objs = self.__session.query(classes[clss]) #Removed the ".all()"
                 for obj in objs:
                     key = obj.__class__.__name__ + '.' + obj.id
                     new_dict[key] = obj
@@ -88,10 +88,11 @@ class DBStorage:
         returns the number of objects in storage
         matching the given class.
         """
-        if self.__session is None:
-            self.reload()  # Ensure session is initialized
-        nobjects = 0
-        for clss in classes:
-            if cls is None or cls is classes[clss] or cls is clss:
-                nobjects += len(self.__session.query(classes[clss]).all())
-        return nobjects
+        # if self.__session is None:
+        #     self.reload()  # Ensure session is initialized
+        # nobjects = 0
+        # for clss in classes:
+        #     if cls is None or cls is classes[clss] or cls is clss:
+        #         nobjects += len(self.__session.query(classes[clss]).all())
+        # return nobjects
+        return (len(self.all(cls)))
