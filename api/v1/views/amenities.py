@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""A Flask route that returns json status response of amenities module"""
+"""A Flask route that returns json status response of amenities module."""
 
 from api.v1.views import app_views
 from flask import jsonify, request, abort
