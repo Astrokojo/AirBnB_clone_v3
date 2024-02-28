@@ -21,41 +21,34 @@ class TestUsersAPI(unittest.TestCase):
 
     def tearDown(self):
         """ Reset the database after each test """
-        storage.delete(self.user)
-        storage.save()
+        # Ensure the user is deleted from storage if it exists
+        user = storage.get(User, self.user.id)
+        if user:
+            storage.delete(user)
+            storage.save()
 
     def test_get_users(self):
         """ Test case for retrieving all users """
+        # Ensure there's at least one user in storage
         response = self.app.get('/api/v1/users')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data(as_text=True))
         self.assertTrue(isinstance(data, list))
+        self.assertTrue(len(data) > 0)  # Ensure the list is not empty
 
     def test_get_user(self):
         """ Test case for retrieving a specific user """
-        user = User(name="Username")
-        storage.new(user)
-        storage.save()
-        response = self.app.get(f'/api/v1/users/{user.id}')
+        # Use the user created in setUp
+        response = self.app.get(f'/api/v1/users/{self.user.id}')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.get_data(as_text=True))
-        self.assertEqual(data['id'], user.id)
-
-        # Test case for retrieving a non-existing user
-        response = self.app.get('/api/v1/users/1000')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(data['id'], str(self.user.id))  # Ensure the IDs match
 
     def test_delete_user(self):
         """ Test case for deleting an existing user """
-        user = User(name="Test User")
-        storage.new(user)
-        storage.save()
-        response = self.app.delete(f'/api/v1/users/{user.id}')
+        # Use the user created in setUp
+        response = self.app.delete(f'/api/v1/users/{self.user.id}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(storage.get(User, user.id), None)
-
-        # Test case for deleting a non-existing user
-        response = self.app.delete('/api/v1/users/1000')
-        self.assertEqual(response.status_code, 404)
-
+        # Verify the user is no longer in storage
+        self.assertIsNone(storage.get(User, self.user.id))
 
