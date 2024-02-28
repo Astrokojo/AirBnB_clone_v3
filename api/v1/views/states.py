@@ -18,7 +18,7 @@ def get_states():
 @app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
     """Returns a specified state using the state id"""
-    state = storage.get(State, state_id)
+    state = storage.get('State', state_id)
     if state is None:  # if id is not found return 404
         abort(404)
     return jsonify(state.to_dict()), 200
@@ -27,7 +27,7 @@ def get_state(state_id):
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
     """Deletes a specific state using the give id"""
-    state = storage.get(State, state_id)
+    state = storage.get('State', state_id)
     # If the state_id is not linked to any State object, raise a 404 error
     if state is None:
         abort(404)
@@ -49,10 +49,11 @@ def create_state():
     return jsonify(state.to_dict()), 201
 
 
+
 @app_views.route('/states/<state_id>', methods=['PUT'])
 def update_state(state_id):
     """Updates a state object with the given id"""
-    state = storage.get(State, state_id)
+    state = storage.get('State', state_id)
     if state is None:
         abort(404)
 
