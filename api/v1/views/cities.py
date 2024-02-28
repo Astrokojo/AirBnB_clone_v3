@@ -35,7 +35,7 @@ def get_city(city_id):
 @app_views.route('/cities/<city_id>', methods=['DELETE'])
 def delete_city(city_id):
     """Deletes a city by its ID"""
-    city = storage.get('City', city_id)
+    city = storage.get(City, city_id)
     if city is None:
         abort(404)
     city.delete()
@@ -46,7 +46,7 @@ def delete_city(city_id):
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
 def create_city(state_id):
     """Creates a new city"""
-    state = storage.get('State', state_id)
+    state = storage.get(State, state_id)
     if state is None:
         abort(404)
     data = request.get_json()
