@@ -52,7 +52,7 @@ class TestUsersAPI(unittest.TestCase):
         storage.save()
         response = self.app.delete(f'/api/v1/users/{user.id}')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(storage.get('User', user.id), None)
+        self.assertEqual(storage.get(User, user.id), None)
 
         # Test case for deleting a non-existing user
         response = self.app.delete('/api/v1/users/1000')
