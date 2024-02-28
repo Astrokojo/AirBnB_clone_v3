@@ -38,14 +38,14 @@ class TestCitiesAPI(unittest.TestCase):
     def test_delete_city(self):
         response = self.app.delete('/api/v1/cities/{}'.format(self.city.id))
         self.assertEqual(response.status_code, 200)
-        self.assertIsNone(storage.get('City', self.city.id))
+        self.assertIsNone(storage.get(City, self.city.id))
 
     def test_create_city(self):
         data = {'name': 'New City', 'state_id': self.state.id}
         response = self.app.post('/api/v1/states/{}/cities'.format(self.state.id), json=data)
         self.assertEqual(response.status_code, 201)
         city_id = json.loads(response.get_data(as_text=True))['id']
-        self.assertTrue(storage.get('City', city_id))
+        self.assertTrue(storage.get(City, city_id))
         # Test case for creating a city with missing data
         response = self.app.post('/api/v1/states/{}/cities'.format(self.state.id), json={})
         self.assertEqual(response.status_code, 400)
@@ -57,7 +57,7 @@ class TestCitiesAPI(unittest.TestCase):
         data = {'name': 'Updated City'}
         response = self.app.put('/api/v1/cities/{}'.format(self.city.id), json=data)
         self.assertEqual(response.status_code, 200)
-        updated_city = storage.get('City', self.city.id)
+        updated_city = storage.get(City, self.city.id)
         self.assertEqual(updated_city.name, 'Updated City')
         # Test case for updating a non-existent city
         response = self.app.put('/api/v1/cities/1000', json=data)

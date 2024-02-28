@@ -51,7 +51,6 @@ class TestUsersAPI(unittest.TestCase):
         storage.new(user)
         storage.save()
         response = self.app.delete(f'/api/v1/users/{user.id}')
-        print(response.status_code)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(storage.get('User', user.id), None)
 

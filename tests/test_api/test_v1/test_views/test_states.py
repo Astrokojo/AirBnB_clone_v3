@@ -49,7 +49,7 @@ class TestStatesAPI(unittest.TestCase):
         storage.save()
         response = self.app.delete('/api/v1/states/{}'.format(state.id))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(storage.get('State', state.id), None)
+        self.assertEqual(storage.get(State, state.id), None)
 
         # Test case for deleting a non-existent state
         response = self.app.delete('/api/v1/states/1000')
@@ -61,7 +61,7 @@ class TestStatesAPI(unittest.TestCase):
         response = self.app.post('/api/v1/states', json=data)
         self.assertEqual(response.status_code, 201)
         state_id = json.loads(response.get_data(as_text=True))['id']
-        self.assertTrue(storage.get('State', state_id))
+        self.assertTrue(storage.get(State, state_id))
         # Test case for creating a state with missing data
         response = self.app.post('/api/v1/states', json={})
         self.assertEqual(response.status_code, 400)
@@ -78,7 +78,7 @@ class TestStatesAPI(unittest.TestCase):
         data = {'name': 'Updated State'}
         response = self.app.put('/api/v1/states/{}'.format(state.id), json=data)
         self.assertEqual(response.status_code, 200)
-        updated_state = storage.get('State', state.id)
+        updated_state = storage.get(State, state.id)
         self.assertEqual(updated_state.name, 'Updated State')
 
         # Test case for updating a non-existent state
