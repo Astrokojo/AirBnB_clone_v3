@@ -11,7 +11,8 @@ Amenity = amenity.Amenity
 @app_views.route('/amenities', methods=['GET'])
 def get_amenities():
     """Returns all amenities object in json format"""
-    amenities = [amenity.to_dict() for amenity in storage.all(Amenity).values()]
+    amenities = [amenity.to_dict()
+                 for amenity in storage.all(Amenity).values()]
     return jsonify(amenities)
 
 
@@ -28,7 +29,7 @@ def get_amenity(amenity_id):
 def delete_amenity(amenity_id):
     """This Deletes a specific amenity object by its id"""
     amenity = storage.get(Amenity, amenity_id)
-    #if the amenity is not found, raise a 404 error
+    # if the amenity is not found, raise a 404 error
     if amenity is None:
         abort(404)
     amenity.delete()
